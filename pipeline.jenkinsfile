@@ -31,11 +31,11 @@ spec:
 
     stages {
         // Удалить если pipeline script from SCM
-        stage('GIT') {
-            steps {
-                git branch: 'EDIT', url: 'https://github.com/SSergeyA/dp_app'
-            }
-        }
+       // stage('GIT') {
+       //     steps {
+       //         git branch: 'EDIT', url: 'https://github.com/SSergeyA/dp_app'
+       //     }
+       // }
 
         stage('BUILD') {
             steps {
