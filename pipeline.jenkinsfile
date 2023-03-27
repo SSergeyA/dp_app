@@ -47,11 +47,10 @@ spec:
             }
         }
 
-        //stage('DEPLOY') {
-        //    steps {
-        //      kubernetesDeploy configs: 'deployment/00-acc.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
-        //      kubernetesDeploy configs: 'deployment/01-deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
-        //    }
-        //}
+        stage('DEPLOY') {
+            steps {
+              kubernetesDeploy configs: 'deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+            }
+        }
     }
 }
