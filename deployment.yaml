@@ -22,20 +22,4 @@ spec:
             - containerPort: 80
               name: http
       restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-  labels:
-    app: dp-app
-  name: "dp-app-svc"
-spec:
-  ports:
-    - name: "http"
-      port: 80
-      targetPort: http
-      nodePort: 30033
-  selector:
-    app: dp-app
-  type: NodePort
+
