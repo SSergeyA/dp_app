@@ -1,4 +1,5 @@
 def gitTag = null
+a=0.0.0
 pipeline {
     agent {
         kubernetes {
@@ -47,7 +48,9 @@ spec:
             steps {
                    script {
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
+                        a = gitTag
                         sh "echo $gitTag"
+                        sh "echo $a"
                    }
               }      
         }                
@@ -57,7 +60,7 @@ spec:
                   script {
                     if ($gitTag) {
                       sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${gitTag}
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${a}
                         '''
                     } else {
                       sh ''' 
