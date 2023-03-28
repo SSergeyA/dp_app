@@ -8,10 +8,10 @@ metadata:
 spec:
   containers:
   - name: helm-cli
-            image: alpine/helm
-            command:
-            - cat
-            tty: true
+    image: alpine/helm
+    command:
+    - cat
+    tty: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     imagePullPolicy: IfNotPresent
