@@ -68,7 +68,11 @@ spec:
          
         stage('If not tagged') {
           when {
-               not { stage 'If tagged' }
+              not {
+                  expression {
+                    return gitTag;
+                  }
+              }         
           }
           steps {
               echo '9000  not '
