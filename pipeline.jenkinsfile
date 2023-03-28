@@ -45,17 +45,19 @@ spec:
         stage('BUILD') {
             steps {
                 container(name: 'kaniko') {
-                  script {
-                    if (env.TAG_NAME) {
-                      sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
-                         '''
-                    } else {
-                      sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
-                         '''
-                    } 
-                 }   
+                    sh "echo env.TAG_NAME"
+                    sh "cat README.md"
+//                  script {
+//                    if (env.TAG_NAME) {
+//                      sh ''' 
+///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
+//                        '''
+//                    } else {
+//                      sh ''' 
+///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
+//                         '''
+//                    } 
+//                 }   
                 }
             }
         }
