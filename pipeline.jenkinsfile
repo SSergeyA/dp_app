@@ -54,7 +54,7 @@ spec:
                         echo " ${gitTag}"
                         echo 'gitTag'
                         sh 'env'
-                        sh '${env.TAG_NAME}'
+                        sh "echo  ${env.TAG_NAME}"
                    }
                    
               }      
