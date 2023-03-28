@@ -51,7 +51,7 @@ spec:
                         echo " ${gitTag}"
                         echo 'gitTag'
                    }
-                   }
+                   
               }      
         }                
        
