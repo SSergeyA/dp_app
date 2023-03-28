@@ -8,6 +8,7 @@ kind: Pod
 metadata:
   name: kaniko
 spec:
+  serviceAccountName: jenkins-account
   containers:
   - name: helm-cli
     image: alpine/helm

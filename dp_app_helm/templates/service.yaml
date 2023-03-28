@@ -7,7 +7,6 @@ metadata:
     app: dp-app
   name: "dp-app-svc"
 spec:
-  serviceAccountName: jenkins
   ports:
     - name: "http"
       port: 80
