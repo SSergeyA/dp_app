@@ -54,6 +54,7 @@ spec:
                    }
               }      
         }                
+       
        stage('If tagged') {
          when {
            expression {
@@ -61,10 +62,17 @@ spec:
            }
          }
          steps {
-             echo '1233'
+             echo '1233  tagged'
          }
         }
-            
+         stage('If not tagged') {
+         when {
+           not { stage 'If tagged' }
+         }
+         steps {
+             echo '9000  not '
+         }
+        }    
         
         stage('BUILD') {
             steps {
