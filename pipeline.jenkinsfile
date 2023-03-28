@@ -105,7 +105,7 @@ spec:
                     // sh "echo  ${env.PWD}"
                      //sh "cat dp_app_helm/Chart.yaml"
                      sh " echo \"appVersion: \\\"nginx${env.TAG_NAME}\\\"\" >> dp_app_helm/Chart.yaml "
-                     sh "helm upgrade --install --force dp-app dp_app_helm"
+                     sh "helm upgrade --install --force dp_app_helm"
                      
                      // sh "cat ~/dp_app_helm/Chart.yaml"
                    }
