@@ -57,7 +57,7 @@ spec:
                   script {
                     if ($gitTag) {
                       sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$gitTag
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${gitTag}
                         '''
                     } else {
                       sh ''' 
