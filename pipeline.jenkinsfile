@@ -69,7 +69,7 @@ spec:
          steps {
              container(name: 'kaniko') { 
                  sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$TAG_NAME
                         '''
              }  
          }
