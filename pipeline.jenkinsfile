@@ -69,13 +69,10 @@ spec:
            }
          }
          steps {
-             container(name: 'kaniko') { 
-                script {
-                    sh 'env'
-//                 sh ''' 
-///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$TAG_NAME
-//                        '''
-                 }             
+             container(name: 'kaniko') {
+                 sh ''' 
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$TAG_NAME
+                        '''
              }  
          }
         }
@@ -84,7 +81,7 @@ spec:
           when {
               not {
                   expression {
-                    return gitTag;
+                    return env.TAG_NAME;
                   }
               }         
           }
