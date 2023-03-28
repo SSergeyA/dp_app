@@ -50,7 +50,7 @@ spec:
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         a = gitTag
                         sh "echo $gitTag"
-                        sh "echo $a"
+                        sh "env"
                    }
               }      
         }                
