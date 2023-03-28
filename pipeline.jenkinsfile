@@ -45,8 +45,11 @@ spec:
         stage('BUILD') {
             steps {
                 container(name: 'kaniko') {
-                    sh "echo env.TAG_NAME"
-                    sh "cat README.md"
+                     script {
+                        sh "echo ${env.TAG_NAME}"
+                        sh "cat README.md"
+                        sh "ls -l"
+                     }   
 //                  script {
 //                    if (env.TAG_NAME) {
 //                      sh ''' 
