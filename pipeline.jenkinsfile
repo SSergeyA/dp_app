@@ -47,8 +47,8 @@ spec:
             steps {
                 container(name: 'kaniko') {
                      script {
-                        gitTag=sh(returnStdout: true, script: "git tag --contains | head -1").trim()
-                        sh "echo ${gitTag}"
+                        gitTag = sh(returnStdout: true, script: "git tag --contains | head -1").trim()
+                        sh "echo gitTag"
                         sh "echo ${env.TAG_NAME}"
                         sh "cat README.md"
                         sh "ls -l"
