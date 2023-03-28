@@ -1,5 +1,5 @@
 def gitTag = null
-a=0.0.0
+a=''
 pipeline {
     agent {
         kubernetes {
