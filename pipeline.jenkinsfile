@@ -45,12 +45,12 @@ spec:
        // }
 
         stage('pre BUILD') {
-            environment { 
-                    TAG_NAME = sh(returnStdout: true, script: "git tag --contains").trim()
-            }        
+        //    environment { 
+        //            TAG_NAME = sh(returnStdout: true, script: "git tag --contains").trim()
+        //    }        
             steps {
                    script {
-                        gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
+         //               gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         echo " ${gitTag}"
                         echo 'gitTag'
                         sh 'env'
@@ -68,10 +68,12 @@ spec:
          }
          steps {
              container(name: 'kaniko') { 
+                script {
                     sh 'env'
 //                 sh ''' 
 ///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$TAG_NAME
 //                        '''
+                 }             
              }  
          }
         }
