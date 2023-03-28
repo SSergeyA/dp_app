@@ -100,11 +100,11 @@ spec:
          steps {
              container(name: 'helm-cli') {
                    script {
-                     sh 'ls -l'
+                     sh 'ls -l dp_app_helm'
                     // sh "echo  ${env.PWD}"
                      sh "cat $PWD/dp_app_helm/Chart.yaml"
-                     sh " echo \"appVersion: \\\"nginx${env.TAG_NAME}\\\"\" >> $PWD/dp_app_helm/Chart.yaml "
-                     sh "cat $PWD/dp_app_helm/Chart.yaml"
+                     sh " echo \"appVersion: \\\"nginx${env.TAG_NAME}\\\"\" >> dp_app_helm/Chart.yaml "
+                     sh "cat dp_app_helm/Chart.yaml"
                      //  >> $PWD/dp_app_helm/Chart.yaml "
                      // sh "cat ~/dp_app_helm/Chart.yaml"
                    }
