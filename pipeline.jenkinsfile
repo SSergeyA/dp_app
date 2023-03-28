@@ -49,7 +49,7 @@ spec:
                    script {
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         a = gitTag
-                        sh "export TAG_NAME=$gitTag"
+                        export TAG_NAME=$gitTag
                         sh "env"
                    }
               }      
@@ -59,13 +59,14 @@ spec:
                 container(name: 'kaniko') {
                   script {
                     if (env.TAG_NAME) {
-                      sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
-                        '''
+//                      sh ''' 
+///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
+//                        '''
                     } else {
-                      sh ''' 
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
-                         '''
+                        println 
+//                      sh ''' 
+///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
+//                         '''
                     } 
                  }   
                 }
