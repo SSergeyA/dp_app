@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   labels:
     app: dp-app
-  name: "dp-app-{{ .Chart.AppVersion}}"
+  name: "dp-app"
 spec:
   replicas: 1
   selector:
@@ -16,6 +16,7 @@ spec:
       labels:
         app: dp-app
     spec:
+      serviceAccountName: jenkins
       containers:
         - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           name: app-nginx
