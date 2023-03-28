@@ -49,7 +49,7 @@ spec:
                    script {
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         a = gitTag
-                        export TAG_NAME=$gitTag
+                        export TAG_NAME=gitTag
                         sh "env"
                    }
               }      
