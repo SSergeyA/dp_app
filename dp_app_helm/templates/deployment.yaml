@@ -1,0 +1,25 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dp-app
+  name: "dp-app-{{ .Chart.AppVersion}}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dp-app
+  template:
+    metadata:
+      labels:
+        app: dp-app
+    spec:
+      containers:
+        - image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          name: app-nginx
+          ports:
+            - containerPort: 80
+              name: http
+      restartPolicy: Always
