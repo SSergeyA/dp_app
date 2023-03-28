@@ -65,13 +65,14 @@ spec:
              echo '1233  tagged'
          }
         }
-         stage('If not tagged') {
-         when {
-           not { stage 'If tagged' }
-         }
-         steps {
-             echo '9000  not '
-         }
+         
+        stage('If not tagged') {
+          when {
+               not { stage 'If tagged' }
+          }
+          steps {
+              echo '9000  not '
+          }
         }    
         
         stage('BUILD') {
