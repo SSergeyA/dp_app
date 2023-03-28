@@ -49,7 +49,6 @@ spec:
                      script {
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         sh "echo $gitTag"
-                        sh "git tag --contains"
                         sh "echo ${env.TAG_NAME}"
                         sh "cat README.md"
                         sh "ls -l"
