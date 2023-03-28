@@ -35,8 +35,9 @@ spec:
 """
         }
     }
-     environment { 
+    environment { 
                 TAG_NAME = sh(returnStdout: true, script: "git tag --contains").trim()
+    }
     stages {
         // Удалить если pipeline script from SCM
        // stage('GIT') {
