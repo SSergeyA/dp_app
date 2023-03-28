@@ -58,7 +58,7 @@ spec:
             steps {
                 container(name: 'kaniko') {
                   script {
-                    if ($gitTag) {
+                    if ($a) {
                       sh ''' 
 /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${a}
                         '''
