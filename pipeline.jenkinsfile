@@ -49,11 +49,23 @@ spec:
                    script {
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         a = gitTag
-                        export TAG_NAME=gitTag
-                        sh "env"
+                        
+                        
                    }
               }      
         }                
+       stage('If tagged') {
+         when {
+           expression {
+             return gitTag;
+           }
+         }
+         steps {
+             echo '1233'
+         }
+        }
+            
+        
         stage('BUILD') {
             steps {
                 container(name: 'kaniko') {
@@ -63,7 +75,6 @@ spec:
 ///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
 //                        '''
                     } else {
-                        println 
 //                      sh ''' 
 ///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
 //                         '''
