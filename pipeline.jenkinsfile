@@ -103,7 +103,7 @@ spec:
                      sh 'ls -l'
                     // sh "echo  ${env.PWD}"
                     // sh "cat /dp_app_helm/Chart.yaml"
-                     sh " echo \"appVersion: "nginx${env.TAG_NAME}"\" "
+                     sh " echo \"appVersion: \\\"nginx${env.TAG_NAME}\\\"\" "
                      //  >> $PWD/dp_app_helm/Chart.yaml "
                      // sh "cat ~/dp_app_helm/Chart.yaml"
                    }
