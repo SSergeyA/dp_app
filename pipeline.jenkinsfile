@@ -59,7 +59,7 @@ spec:
               }      
         }                
       /* 
-       stage('BUILD If tagged') {
+        stage('BUILD If tagged') {
          when {
            expression {
              return env.TAG_NAME;
@@ -89,9 +89,10 @@ spec:
                         '''
              }  
           }
-            
+        }    
         */
-       stage('DEPLOY If tagged') {
+        stage('DEPLOY If tagged') {
+          when { 
            expression {
              return env.TAG_NAME;
            }
@@ -105,11 +106,13 @@ spec:
              }  
          }
         }
-      }
+      }  
+  
+      
       //  stage('DEPLOY') {
       //      steps {
       //        kubernetesDeploy configs: 'deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
       //      }
       //  }
-    }
+    
 }
