@@ -48,8 +48,9 @@ spec:
             steps {
                    script {
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
-                        a = gitTag
-                        
+                        env.TAG_NAME = gitTag
+                        echo "env.BUILD_VERSION"
+                        echo "${env.BUILD_VERSION}"
                         
                    }
               }      
@@ -62,7 +63,11 @@ spec:
            }
          }
          steps {
-             echo '1233  tagged'
+             container(name: 'kaniko') { 
+//                 sh ''' 
+///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
+//                        '''
+             }  
          }
         }
          
