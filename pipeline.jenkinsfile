@@ -65,7 +65,7 @@ spec:
        stage('If tagged') {
          when {
            expression {
-             return gitTag;
+             return $TAG_NAME;
            }
          }
          steps {
@@ -89,7 +89,7 @@ spec:
               }         
           }
           steps {
-              echo '9000  not '
+              echo '9000  not $TAG_NAME '
           }
         }    
         
