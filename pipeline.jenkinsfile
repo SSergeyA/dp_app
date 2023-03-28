@@ -43,11 +43,20 @@ spec:
        //     }
        // }
 
+        stage('pre BUILD') {
+            steps {
+                   script {
+                        gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
+                        sh "echo $gitTag"
+                        sh "echo ${env.TAG_NAME}"
+                   }
+              }      
+        }                
         stage('BUILD') {
             steps {
                 container(name: 'kaniko') {
                      script {
-                        gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
+                      
                         sh "echo $gitTag"
                         sh "echo ${env.TAG_NAME}"
                         sh "cat README.md"
