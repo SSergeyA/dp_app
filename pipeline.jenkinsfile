@@ -101,7 +101,7 @@ spec:
              container(name: 'helm-cli') {
                    script {
                       sh "echo  ${env.TAG_NAME}"
-                      sh " echo 'appVersion: "nginx${env.TAG_NAME}"' >> ~/dp_app_helm/Chart.yaml "
+                      sh " echo 'appVersion: "nginx'$TAG_NAME'"' >> ~/dp_app_helm/Chart.yaml "
                       sh "cat ~/dp_app_helm/Chart.yaml"
                    }
                 // sh "helm upgrade diploma helm/ --install --namespace stage"
