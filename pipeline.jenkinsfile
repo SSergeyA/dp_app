@@ -59,37 +59,37 @@ spec:
               }      
         }                
       
-//        stage('BUILD If tagged') {
-//         when {
-//           expression {
-//             return env.TAG_NAME;
-//           }
-//         }
-//         steps {
-//             container(name: 'kaniko') {
-//                 sh ''' 
-///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$TAG_NAME
-//                        '''
-//             }  
-//         }
-//        }
-//         
-//        stage('BUILD If not tagged') {
-//          when {
-//              not {
-//                  expression {
-//                    return env.TAG_NAME;
-//                 }
-//              }         
-//          }
-//          steps {
-//              container(name: 'kaniko') {
-//                 sh ''' 
-///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
-//                        '''
-//             }  
-//          }
-//        }    
+        stage('BUILD If tagged') {
+         when {
+           expression {
+             return env.TAG_NAME;
+           }
+         }
+         steps {
+             container(name: 'kaniko') {
+                 sh ''' 
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$TAG_NAME
+                        '''
+             }  
+         }
+        }
+         
+        stage('BUILD If not tagged') {
+          when {
+              not {
+                  expression {
+                    return env.TAG_NAME;
+                 }
+              }         
+          }
+          steps {
+              container(name: 'kaniko') {
+                 sh ''' 
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
+                        '''
+             }  
+          }
+        }    
         
         stage('DEPLOY If tagged') {
           when { 
@@ -102,23 +102,16 @@ spec:
                    script {
                      sh 'ls -l dp_app_helm'
                     // sh "echo  ${env.PWD}"
-                     sh "cat dp_app_helm/Chart.yaml"
+                     //sh "cat dp_app_helm/Chart.yaml"
                      sh " echo \"appVersion: \\\"nginx${env.TAG_NAME}\\\"\" >> dp_app_helm/Chart.yaml "
-                     sh "cat dp_app_helm/Chart.yaml"
-                     //  >> $PWD/dp_app_helm/Chart.yaml "
+                     sh "helm upgrade --install dp-app dp_app_helm --namespace stage"
+                     
                      // sh "cat ~/dp_app_helm/Chart.yaml"
                    }
-                // sh "helm upgrade diploma helm/ --install --namespace stage"
+                // 
              }  
          }
         }
       }  
-  
-      
-      //  stage('DEPLOY') {
-      //      steps {
-      //        kubernetesDeploy configs: 'deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
-      //      }
-      //  }
     
 }
