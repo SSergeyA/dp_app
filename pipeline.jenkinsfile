@@ -50,11 +50,12 @@ spec:
                       sh ''' 
 /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
                          '''
-                    }
-                    if (env.TAG_NAME) {
+                    } else {
                       sh ''' 
 /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
                          '''
+                    } 
+                 }   
                 }
             }
         }
