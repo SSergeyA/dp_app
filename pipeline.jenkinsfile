@@ -45,17 +45,21 @@ spec:
         stage('BUILD') {
             steps {
                 container(name: 'kaniko') {
-                    sh '''
-/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx0.1.$BUILD_NUMBER
-                    '''
+                  script {
+                    if (env.TAG_NAME) {
+                      sh ''' /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${env.TAG_NAME}
+                    }
+                    if (env.TAG_NAME) {
+                      sh ''' /kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
+                         '''
                 }
             }
         }
 
-        stage('DEPLOY') {
-            steps {
-              kubernetesDeploy configs: 'deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
-            }
-        }
+      //  stage('DEPLOY') {
+      //      steps {
+      //        kubernetesDeploy configs: 'deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+      //      }
+      //  }
     }
 }
