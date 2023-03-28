@@ -39,7 +39,7 @@ spec:
                 TAG_NAME = sh(returnStdout: true, script: "git tag --contains").trim()
     }
     stages {
-        // Удалить если pipeline script from SCM
+        // Раскоментировать если pipeline script from SCM
        // stage('GIT') {
        //     steps {
        //         git branch: 'EDIT', url: 'https://github.com/SSergeyA/dp_app'
@@ -47,22 +47,19 @@ spec:
        // }
 
         stage('pre BUILD') {
-        //    environment { 
-        //            TAG_NAME = sh(returnStdout: true, script: "git tag --contains").trim()
-        //    }        
             steps {
                    script {
-         //               gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
+                        gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         echo " ${gitTag}"
                         echo 'gitTag'
-                        sh 'env'
+                       
                         sh "echo  ${env.TAG_NAME}"
                    }
                    
               }      
         }                
-       
-       stage('If tagged') {
+      /* 
+       stage('BUILD If tagged') {
          when {
            expression {
              return env.TAG_NAME;
@@ -77,7 +74,7 @@ spec:
          }
         }
          
-        stage('If not tagged') {
+        stage('BUILD If not tagged') {
           when {
               not {
                   expression {
@@ -86,28 +83,29 @@ spec:
               }         
           }
           steps {
-              echo '9000  not '
+              container(name: 'kaniko') {
+                  sh ''' 
+/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
+                        '''
+             }  
           }
-        }    
-        
-        stage('BUILD') {
-            steps {
-                container(name: 'kaniko') {
-                  script {
-                    if (env.TAG_NAME) {
-//                      sh ''' 
-///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx${gitTag}
-//                        '''
-                    } else {
-//                      sh ''' 
-///kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=ssergeya/dp_app:nginx$BUILD_NUMBER
-//                         '''
-                    } 
-                 }   
-                }
-            }
+            
+        */
+       stage('DEPLOY If tagged') {
+           expression {
+             return env.TAG_NAME;
+           }
+         }
+         steps {
+             container(name: 'helm-cli') {
+                   script {
+                      sh ' echo 'appVersion: "nginx${env.TAG_NAME}"' >> ~/dp_app_helm/Chart.yaml  '
+                   }
+                // sh "helm upgrade diploma helm/ --install --namespace stage"
+             }  
+         }
         }
-
+      }
       //  stage('DEPLOY') {
       //      steps {
       //        kubernetesDeploy configs: 'deployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'cube-conf-admin', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
