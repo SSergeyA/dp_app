@@ -40,12 +40,7 @@ spec:
                 TAG_NAME = sh(returnStdout: true, script: "git tag --contains").trim()
     }
     stages {
-        // Раскоментировать если pipeline script from SCM
-       // stage('GIT') {
-       //     steps {
-       //         git branch: 'EDIT', url: 'https://github.com/SSergeyA/dp_app'
-       //     }
-       // }
+        
 
         stage('pre BUILD') {
             steps {
@@ -102,12 +97,9 @@ spec:
              container(name: 'helm-cli') {
                    script {
                      sh 'ls -l dp_app_helm'
-                    // sh "echo  ${env.PWD}"
-                     //sh "cat dp_app_helm/Chart.yaml"
                      sh " echo \"appVersion: \\\"nginx${env.TAG_NAME}\\\"\" >> dp_app_helm/Chart.yaml "
                      sh "helm upgrade --install --force dp-app dp_app_helm --namespace stage"
-                     
-                     
+                                        
                    }
                 // 
              }  
