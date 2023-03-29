@@ -53,7 +53,7 @@ spec:
                         gitTag = sh(returnStdout: true, script: "git tag --contains").trim()
                         echo " ${gitTag}"
                         echo 'gitTag'
-                       
+                        sh "echo ${env.PWD}" 
                         sh "echo  ${env.TAG_NAME}"
                    }
                    
